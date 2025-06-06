@@ -1,13 +1,18 @@
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
-import { Card, Paragraph, Title } from "react-native-paper";
+import { StyleSheet, View } from "react-native";
+import { Card, Text } from "react-native-paper";
+import { useAuth } from "../lib/AuthProvider";
 
 const LandingPage = () => {
+  const { session } = useAuth();
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <Text style={styles.welcomeText}>Welcome, Florian</Text>
+        <Text style={styles.welcomeText}>Welcome</Text>
+        <Text style={styles.welcomeText}>
+          {session?.user.name || session?.user.email?.split("@")[0]}
+        </Text>
       </View>
 
       <View style={styles.cardContainer}>
@@ -15,16 +20,16 @@ const LandingPage = () => {
           <Card.Content>
             <View style={styles.cardContent}>
               <View>
-                <Title style={styles.cardTitle}>
+                <Text variant="titleMedium" style={styles.cardTitle}>
                   Explore up to 30 Penguins
-                </Title>
-                <Paragraph style={styles.cardParagraph}>
+                </Text>
+                <Text variant="bodyMedium" style={styles.cardParagraph}>
                   from island 30 different islands.
-                </Paragraph>
+                </Text>
               </View>
               <MaterialCommunityIcons
                 name="arrow-top-right"
-                size={24}
+                size={44}
                 color="black"
               />
             </View>
@@ -35,14 +40,16 @@ const LandingPage = () => {
           <Card.Content>
             <View style={styles.cardContent}>
               <View>
-                <Title style={styles.cardTitle}>Add your own Penguins</Title>
-                <Paragraph style={styles.cardParagraph}>
+                <Text variant="titleMedium" style={styles.cardTitle}>
+                  Add your own Penguins
+                </Text>
+                <Text variant="bodyMedium" style={styles.cardParagraph}>
                   help track these animals!
-                </Paragraph>
+                </Text>
               </View>
               <MaterialCommunityIcons
                 name="arrow-top-right"
-                size={24}
+                size={44}
                 color="black"
               />
             </View>
@@ -58,6 +65,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#f5f5f5",
     alignItems: "center",
+    justifyContent: "center",
   },
   header: {
     paddingTop: 100, // Adjusted for better positioning

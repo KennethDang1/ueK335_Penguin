@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, StyleSheet, Image, TouchableOpacity } from "react-native";
+import { Image, StyleSheet, TouchableOpacity, View } from "react-native";
 import { Button, Text, TextInput } from "react-native-paper";
 import { useAuth } from "../lib/AuthProvider";
 import Register from "./Register";
@@ -32,10 +32,7 @@ function Login() {
     <View style={styles.container}>
       <Text style={styles.title}>PenguCruxSnow</Text>
 
-      <Image
-        source={require('../../assets/penguin.png')}
-        style={styles.logo}
-      />
+      <Image source={require("../../assets/penguin.png")} style={styles.logo} />
 
       <View style={styles.inputContainer}>
         <Text style={styles.label}>E-Mail</Text>
@@ -82,12 +79,12 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 20,
     paddingTop: 100,
-    alignItems: 'center',
-    backgroundColor: 'white',
+    alignItems: "center",
+    backgroundColor: "white",
   },
   title: {
     fontSize: 24,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     marginBottom: 20,
   },
   logo: {
@@ -96,7 +93,7 @@ const styles = StyleSheet.create({
     marginBottom: 30,
   },
   inputContainer: {
-    width: '100%',
+    width: "100%",
     marginBottom: 20,
   },
   label: {
@@ -104,36 +101,36 @@ const styles = StyleSheet.create({
   },
   input: {
     marginBottom: 15,
-    backgroundColor: 'white',
+    backgroundColor: "white",
     borderWidth: 1,
-    borderColor: '#ccc',
+    borderColor: "#ccc",
     borderRadius: 5,
     height: 50,
   },
   errorText: {
-    color: 'red',
+    color: "red",
     marginBottom: 10,
   },
   loginButton: {
-    width: '100%',
-    backgroundColor: '#FFCC00',
+    width: "100%",
+    backgroundColor: "#FFCC00",
     marginBottom: 20,
     borderRadius: 5,
   },
   loginButtonBorder: {
     borderWidth: 1,
-    borderColor: 'black',
+    borderColor: "black",
   },
   loginButtonText: {
-    color: 'black',
+    color: "black",
   },
   registerContainer: {
-    flexDirection: 'row',
+    flexDirection: "row",
     gap: 5,
   },
   registerLink: {
-    color: '#007AFF',
-  }
+    color: "#007AFF",
+  },
 });
 
 export default Login;

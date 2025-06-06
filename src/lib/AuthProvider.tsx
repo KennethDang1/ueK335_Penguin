@@ -5,7 +5,7 @@ import React, { createContext, ReactNode, useContext } from "react";
 // Constants
 const EMAIL_KEY = "auth_user_email";
 const PASSWORD_KEY = "auth_user_password";
-const API_URL = "https://rest-jsondb.sliplane.app/login";
+const API_URL = process.env.EXPO_PUBLIC_API_BASE_URL + "/login";
 
 // Types
 interface LoginCredentials {
@@ -13,12 +13,15 @@ interface LoginCredentials {
   password: string;
 }
 
+interface User {
+  name: string | null;
+  email: string;
+  id: number;
+}
+
 interface AuthSession {
   accessToken: string;
-  user: {
-    email: string;
-    id: number;
-  };
+  user: User;
 }
 
 interface AuthContextType {
