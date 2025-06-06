@@ -1,73 +1,98 @@
-import React, { useEffect, useState } from "react";
-import { Alert, StyleSheet, TextInput, View } from "react-native";
-import { Button, Text } from "react-native-paper";
-import { useAuth } from "../lib/AuthProvider";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
+import React from "react";
+import { StyleSheet, Text, View } from "react-native";
+import { Card, Paragraph, Title } from "react-native-paper";
 
-function LandingPage() {
-  const autContext = useAuth();
-  const { login, isLoggingIn, isLoginError, loginError } = useAuth();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-
-  useEffect(() => {
-    if (isLoginError && loginError) {
-      Alert.alert("Login Failed", loginError.message);
-    }
-  }, [isLoginError, loginError]);
-
-  const handleLogin = async () => {
-    if (isLoggingIn) return;
-
-    try {
-      await login({ email, password });
-      Alert.alert("Success", "You are now logged in!");
-    } catch (error: any) {
-      Alert.alert(
-        "Login Failed",
-        error.message || "Please check your credentials."
-      );
-    }
-  };
-
+const LandingPage = () => {
   return (
     <View style={styles.container}>
-      <Text>LandingPage</Text>
-      <TextInput
-        placeholder="Email"
-        value={email}
-        onChangeText={setEmail}
-        autoCapitalize="none"
-        style={styles.input}
-      />
-      <TextInput
-        placeholder="Password"
-        value={password}
-        onChangeText={setPassword}
-        secureTextEntry
-        style={styles.input}
-      />
-      {isLoginError && (
-        <Text style={styles.errorText}>
-          {loginError?.message || "An unknown error occurred."}
-        </Text>
-      )}
-      <Button onPress={handleLogin} disabled={isLoggingIn}>
-        {isLoggingIn ? "Logging in..." : "Login"}
-      </Button>
-      <Button onPress={() => autContext.logout()}>Logout</Button>
+      <View style={styles.header}>
+        <Text style={styles.welcomeText}>Welcome, Florian</Text>
+      </View>
+
+      <View style={styles.cardContainer}>
+        <Card style={styles.card}>
+          <Card.Content>
+            <View style={styles.cardContent}>
+              <View>
+                <Title style={styles.cardTitle}>
+                  Explore up to 30 Penguins
+                </Title>
+                <Paragraph style={styles.cardParagraph}>
+                  from island 30 different islands.
+                </Paragraph>
+              </View>
+              <MaterialCommunityIcons
+                name="arrow-top-right"
+                size={24}
+                color="black"
+              />
+            </View>
+          </Card.Content>
+        </Card>
+
+        <Card style={styles.card}>
+          <Card.Content>
+            <View style={styles.cardContent}>
+              <View>
+                <Title style={styles.cardTitle}>Add your own Penguins</Title>
+                <Paragraph style={styles.cardParagraph}>
+                  help track these animals!
+                </Paragraph>
+              </View>
+              <MaterialCommunityIcons
+                name="arrow-top-right"
+                size={24}
+                color="black"
+              />
+            </View>
+          </Card.Content>
+        </Card>
+      </View>
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
-  container: { padding: 20 },
-  input: {
-    /* ... your styles ... */
+  container: {
+    flex: 1,
+    backgroundColor: "#f5f5f5",
+    alignItems: "center",
   },
-  errorText: {
-    color: "red",
-    marginBottom: 10,
+  header: {
+    paddingTop: 100, // Adjusted for better positioning
+    paddingHorizontal: 20,
+    marginBottom: 40, // Added space below header
+  },
+  welcomeText: {
+    fontSize: 28,
+    fontWeight: "bold",
     textAlign: "center",
+  },
+  cardContainer: {
+    width: "90%", // Adjusted width for cards
+    alignItems: "center",
+  },
+  card: {
+    width: "100%",
+    marginVertical: 10,
+    borderRadius: 10,
+    elevation: 2,
+  },
+  cardContent: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    paddingVertical: 10,
+    paddingHorizontal: 15,
+  },
+  cardTitle: {
+    fontSize: 18,
+    fontWeight: "bold",
+  },
+  cardParagraph: {
+    fontSize: 14,
+    color: "gray",
   },
 });
 
