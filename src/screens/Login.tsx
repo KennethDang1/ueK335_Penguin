@@ -8,11 +8,6 @@ function Login() {
   // State to toggle between Login and Register screens
   const [showRegister, setShowRegister] = useState(false);
 
-  // If showRegister is true, render the Register component
-  if (showRegister) {
-    return <Register onBackToLogin={() => setShowRegister(false)} />;
-  }
-
   // We call the login mutation from the context
   const { login: performLogin, isLoggingIn } = useAuth();
   const [email, setEmail] = useState("");
@@ -20,6 +15,11 @@ function Login() {
 
   // To get the error state, we can track it locally
   const [loginError, setLoginError] = useState<string | null>(null);
+
+  // If showRegister is true, render the Register component
+  if (showRegister) {
+    return <Register onBackToLogin={() => setShowRegister(false)} />;
+  }
 
   const handleLogin = () => {
     setLoginError(null); // Clear previous errors
