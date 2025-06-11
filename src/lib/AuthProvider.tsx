@@ -6,6 +6,7 @@ import React, { createContext, ReactNode, useContext } from "react";
 const EMAIL_KEY = "auth_user_email";
 const PASSWORD_KEY = "auth_user_password";
 const API_URL = process.env.EXPO_PUBLIC_API_BASE_URL + "/login";
+const API_Register = process.env.EXPO_PUBLIC_API_BASE_URL + "/users";
 
 // Types
 interface LoginCredentials {
@@ -19,6 +20,12 @@ interface User {
   id: number;
 }
 
+interface RegisterCredentials {
+  name: string;
+  email: string;
+  password: string;
+}
+
 interface AuthSession {
   accessToken: string;
   user: User;
@@ -28,11 +35,13 @@ interface AuthContextType {
   session: AuthSession | null;
   login: (credentials: LoginCredentials) => Promise<AuthSession>;
   logout: () => Promise<void>;
+  register: (credentials: RegisterCredentials) => Promise<AuthSession>;
   isAuth: boolean;
   isLoading: boolean;
   isLoggingIn: boolean;
   isLoggingOut: boolean;
   loginError: Error | null;
+  isRegistering: boolean;
 }
 
 // API
@@ -52,6 +61,25 @@ const loginApi = async (
   return response.json();
 };
 
+const registerApi = async (
+  credentials: RegisterCredentials
+): Promise<AuthSession> => {
+  const response = await fetch(API_Register, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(credentials),
+  });
+
+  const data = await response.json(); // parse response body
+
+  if (!response.ok) {
+    console.error("Registration error:", data); // log actual error message
+    throw new Error(data?.message || "Failed to register. Please check your details.");
+  }
+
+  return data;
+};
+
 // Context
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
@@ -62,6 +90,19 @@ interface AuthProviderProps {
 
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const queryClient = useQueryClient();
+
+  const {
+    mutateAsync: registerMutation,
+    isPending: isRegistering,
+    error: registerError,
+  } = useMutation<AuthSession, Error, RegisterCredentials>({
+    mutationFn: registerApi,
+    onSuccess: async (newSession, variables) => {
+      await SecureStore.setItemAsync(EMAIL_KEY, variables.email);
+      await SecureStore.setItemAsync(PASSWORD_KEY, variables.password);
+      queryClient.setQueryData(["session"], newSession);
+    },
+  });
 
   // Session query - auto-login with stored credentials
   const {
@@ -125,8 +166,12 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     isAuth: isSuccess && !!session,
     isLoading,
     isLoggingIn,
-    isLoggingOut,
     loginError,
+    isLoggingOut,
+    isRegistering,
+    register: async (credentials) => {
+      return registerMutation(credentials);
+    },
     login: async (credentials) => {
       if (loginError) resetLoginMutation();
       return loginMutation(credentials);

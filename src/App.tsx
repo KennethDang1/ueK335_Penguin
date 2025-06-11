@@ -1,3 +1,4 @@
+import React from "react";
 import { StyleSheet } from "react-native";
 import Providers from "./Providers";
 import { Tabs } from "./Tabs";

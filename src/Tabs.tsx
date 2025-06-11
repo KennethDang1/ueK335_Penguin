@@ -4,7 +4,8 @@ import React from "react";
 import CustomBottomNavbar from "./components/CustomBottomNavbar";
 import LandingPage from "./screens/LandingPage";
 import Login from "./screens/Login";
-import PenguinManager from "./screens/Register";
+import PenguinManager from "./screens/PenguinDemo";
+import Profile from "./screens/Profile";
 
 const Tab = createBottomTabNavigator();
 
@@ -31,7 +32,7 @@ export function Tabs() {
       />
       <Tab.Screen
         name="Create"
-        component={Login}
+        component={PenguinManager}
         options={{
           tabBarIcon: ({ color, size }) => (
             <MaterialCommunityIcons
@@ -44,7 +45,7 @@ export function Tabs() {
       />
       <Tab.Screen
         name="Profile"
-        component={PenguinManager}
+        component={Profile}
         options={{
           tabBarIcon: ({ color, size }) => (
             <MaterialCommunityIcons name="account" color={color} size={size} />
