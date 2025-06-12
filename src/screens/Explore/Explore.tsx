@@ -117,6 +117,7 @@ const Explore = () => {
                       icon="pencil-outline"
                       size={20}
                       iconColor="#000000"
+                      onPress={() => navigation.navigate("Edit", { penguin: item })}
                     />
                     <IconButton
                       icon="delete-outline"
