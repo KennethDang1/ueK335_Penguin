@@ -11,7 +11,7 @@ function Register({ onBackToLogin }: RegisterProps) {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-    const [confirmPassword, setConfirmPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [registerError, setRegisterError] = useState<string | null>(null);
   const { register: performRegister, isRegistering } = useAuth();
 
@@ -31,10 +31,10 @@ function Register({ onBackToLogin }: RegisterProps) {
       setRegisterError("Password must be at least 8 characters.");
       return;
     }
-      if (password !== confirmPassword) {
-          setRegisterError("Passwords do not match.");
-          return;
-      }
+    if (password !== confirmPassword) {
+      setRegisterError("Passwords do not match.");
+      return;
+    }
 
     try {
       await performRegister({ name, email, password });
@@ -72,13 +72,13 @@ function Register({ onBackToLogin }: RegisterProps) {
           onChangeText={setPassword}
           secureTextEntry
         />
-           <Text style={styles.label}>Confirm Password</Text>
-          <TextInput
-              style={styles.input}
-              value={confirmPassword}
-              onChangeText={setConfirmPassword}
-              secureTextEntry
-          />
+        <Text style={styles.label}>Confirm Password</Text>
+        <TextInput
+          style={styles.input}
+          value={confirmPassword}
+          onChangeText={setConfirmPassword}
+          secureTextEntry
+        />
       </View>
 
       {registerError && <Text style={styles.errorText}>{registerError}</Text>}

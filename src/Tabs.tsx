@@ -2,8 +2,11 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import React from "react";
 import CustomBottomNavbar from "./components/CustomBottomNavbar";
+
 import Explore from "./screens/Explore";
-import PenguinManager from "./screens/PenguinDemo";
+import LandingPage from "./screens/LandingPage";
+import Login from "./screens/Login";
+import Create from "./screens/Create";
 import Profile from "./screens/Profile";
 
 const Tab = createBottomTabNavigator();
@@ -33,7 +36,7 @@ export function Tabs() {
       />
       <Tab.Screen
         name="Create"
-        component={PenguinManager}
+        component={Create}
         options={{
           tabBarIcon: ({ color, size }) => (
             <MaterialCommunityIcons

@@ -182,6 +182,7 @@ const PenguinManager = () => {
         flipperLengthMm: null,
         bodyMassG: null,
         sex: null,
+        name: "",
       };
       createPenguin(newPenguinData);
       setNewSpecies("");
