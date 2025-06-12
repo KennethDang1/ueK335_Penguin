@@ -2,8 +2,7 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import React from "react";
 import CustomBottomNavbar from "./components/CustomBottomNavbar";
-import LandingPage from "./screens/LandingPage";
-import Login from "./screens/Login";
+import Explore from "./screens/Explore";
 import PenguinManager from "./screens/PenguinDemo";
 import Profile from "./screens/Profile";
 
@@ -18,12 +17,14 @@ export function Tabs() {
       screenOptions={{
         headerShown: false,
         tabBarShowLabel: false,
+        tabBarActiveTintColor: "#FFDA63",
+        tabBarInactiveTintColor: "gray",
       }}
       tabBar={(props) => <CustomBottomNavbar {...props} />}
     >
       <Tab.Screen
         name="Explore"
-        component={LandingPage}
+        component={Explore}
         options={{
           tabBarIcon: ({ color, size }) => (
             <MaterialCommunityIcons name="penguin" color={color} size={size} />

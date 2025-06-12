@@ -30,7 +30,7 @@ const CustomBottomNavbar = ({
 
 const styles = StyleSheet.create({
   bottomNavigation: {
-    backgroundColor: "white",
+    backgroundColor: "#E6E6FA",
     borderTopWidth: 1,
     borderTopColor: "#e0e0e0",
   },
