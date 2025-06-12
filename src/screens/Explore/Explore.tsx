@@ -1,3 +1,5 @@
+import { useNavigation } from "@react-navigation/native";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import React, { useState } from "react";
 import { RefreshControl, ScrollView, StyleSheet, View } from "react-native";
 import {
@@ -9,9 +11,12 @@ import {
   Text,
 } from "react-native-paper";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { Penguin, usePenguins } from "../lib/penguinApi";
+import { Penguin, usePenguins } from "../../lib/penguinApi";
+import { ExploreStackParamList } from "./ExploreStack";
 
 const Explore = () => {
+  const navigation =
+    useNavigation<NativeStackNavigationProp<ExploreStackParamList>>();
   const [searchText, setSearchText] = useState("");
   const [genderFilter, setGenderFilter] = useState<"ALL" | "MALE" | "FEMALE">(
     "ALL"
@@ -44,6 +49,10 @@ const Explore = () => {
     } finally {
       setRefreshing(false);
     }
+  };
+
+  const handleViewPenguin = (penguin: Penguin) => {
+    navigation.navigate("View", { penguin });
   };
 
   if (isLoading && !refreshing) {
@@ -101,6 +110,7 @@ const Explore = () => {
                     icon="eye-outline"
                     size={42}
                     iconColor="#000000"
+                    onPress={() => handleViewPenguin(item)}
                   />
                   <View>
                     <IconButton

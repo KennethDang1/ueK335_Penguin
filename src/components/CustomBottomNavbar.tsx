@@ -7,11 +7,12 @@ const CustomBottomNavbar = ({
   state,
   descriptors,
   navigation,
+  insets,
 }: BottomTabBarProps) => {
   return (
     <BottomNavigation.Bar
       navigationState={state}
-      safeAreaInsets={{ bottom: 0 }}
+      safeAreaInsets={insets}
       onTabPress={({ route }) => navigation.navigate(route.name)}
       renderIcon={({ route, focused, color }) => {
         const { options } = descriptors[route.key];

@@ -1,11 +1,18 @@
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { BottomTabNavigationProp } from "@react-navigation/bottom-tabs";
+import { useNavigation } from "@react-navigation/native";
 import React from "react";
 import { StyleSheet, View } from "react-native";
 import { Card, Text } from "react-native-paper";
 import { useAuth } from "../lib/AuthProvider";
+import { usePenguins } from "../lib/penguinApi";
+import { TabsParamList } from "../Tabs";
 
 const LandingPage = () => {
   const { session } = useAuth();
+  const navigation = useNavigation<BottomTabNavigationProp<TabsParamList>>();
+  const { data } = usePenguins();
+  const totalCount = data?.totalCount;
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -16,15 +23,20 @@ const LandingPage = () => {
       </View>
 
       <View style={styles.cardContainer}>
-        <Card style={styles.card}>
+        <Card
+          style={styles.card}
+          onPress={() => {
+            navigation.navigate("Explore");
+          }}
+        >
           <Card.Content>
             <View style={styles.cardContent}>
               <View>
                 <Text variant="titleMedium" style={styles.cardTitle}>
-                  Explore up to 30 Penguins
+                  Explore up to {totalCount || ""} Penguins
                 </Text>
                 <Text variant="bodyMedium" style={styles.cardParagraph}>
-                  from island 30 different islands.
+                  So manny penguins to discover!
                 </Text>
               </View>
               <MaterialCommunityIcons
@@ -36,7 +48,7 @@ const LandingPage = () => {
           </Card.Content>
         </Card>
 
-        <Card style={styles.card}>
+        <Card style={styles.card} onPress={() => navigation.navigate("Create")}>
           <Card.Content>
             <View style={styles.cardContent}>
               <View>
