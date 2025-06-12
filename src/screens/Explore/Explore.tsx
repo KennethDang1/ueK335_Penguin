@@ -1,7 +1,13 @@
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import React, { useState } from "react";
-import { RefreshControl, ScrollView, StyleSheet, View } from "react-native";
+import {
+  Alert,
+  RefreshControl,
+  ScrollView,
+  StyleSheet,
+  View,
+} from "react-native";
 import {
   Button,
   Card,
@@ -11,7 +17,7 @@ import {
   Text,
 } from "react-native-paper";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { Penguin, usePenguins } from "../../lib/penguinApi";
+import { Penguin, useDeletePenguin, usePenguins } from "../../lib/penguinApi";
 import { ExploreStackParamList } from "./ExploreStack";
 
 const Explore = () => {
@@ -38,6 +44,36 @@ const Explore = () => {
       pageSize: 10,
     },
   });
+
+  const { mutate: deletePenguin } = useDeletePenguin();
+
+  const handleDeletePenguin = async (penguin: Penguin) => {
+    Alert.alert(
+      "Delete Penguin",
+      `Are you sure you want to delete ${penguin.species}${
+        penguin.name ? ` (${penguin.name})` : ""
+      }?`,
+      [
+        {
+          text: "Cancel",
+          style: "cancel",
+        },
+        {
+          text: "Delete",
+          style: "destructive",
+          onPress: async () => {
+            try {
+              await deletePenguin(penguin.id);
+              console.log("Penguin deleted successfully:", penguin.id);
+              await refetch();
+            } catch (error) {
+              console.error("Failed to delete penguin:", error);
+            }
+          },
+        },
+      ]
+    );
+  };
 
   const onRefresh = async () => {
     setRefreshing(true);
@@ -117,12 +153,15 @@ const Explore = () => {
                       icon="pencil-outline"
                       size={20}
                       iconColor="#000000"
-                      onPress={() => navigation.navigate("Edit", { penguin: item })}
+                      onPress={() =>
+                        navigation.navigate("Edit", { penguin: item })
+                      }
                     />
                     <IconButton
                       icon="delete-outline"
                       size={20}
                       iconColor="#000000"
+                      onPress={() => handleDeletePenguin(item)}
                     />
                   </View>
                 </View>
