@@ -69,7 +69,7 @@ function Login() {
       <View style={styles.registerContainer}>
         <Text>Don't have an account?</Text>
         <TouchableOpacity onPress={() => setShowRegister(true)}>
-          <Text style={styles.registerLink}>Register</Text>
+          <Text style={styles.loginLink}>Register</Text>
         </TouchableOpacity>
       </View>
     </View>
