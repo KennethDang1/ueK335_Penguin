@@ -61,3 +61,7 @@ Scanne den QR-Code auf deinem IOS oder Android Gerät. Stelle sicher, dass du di
 
 ### 6. Applikation beenden
 Um die Applikation zu beenden führe `Ctrl + C` aus.
+
+## Coding Guidelines
+
+This project follows the [Google TypeScript Style Guide](https://google.github.io/styleguide/tsguide.html).
