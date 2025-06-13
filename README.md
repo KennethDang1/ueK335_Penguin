@@ -1,7 +1,6 @@
 # uek335 PenguSnowCrux
 
 ## Dokumente
-- [Projekt Dokumentation](https://docs.google.com/document/d/11Qnsk764-YYJJ2bl2ZYqXrA4gDlcg4EaR-9yaT0auc8/edit?tab=t.0)
 - [Figma](https://www.figma.com/design/gvT7uX1Kc1tegjJbqXerD8/Pinguin-Mockup?node-id=35-1665&t=uiLbjVJm59QQ2QEm-0)
 
 ## Projektübersicht
