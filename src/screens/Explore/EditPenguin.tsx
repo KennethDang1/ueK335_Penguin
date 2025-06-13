@@ -85,7 +85,6 @@ export default function EditPenguin({ route, navigation }: any) {
         paddingBottom: 30,
       }}
     >
-
       <TextInput
         label="Name (optional)"
         value={name}
