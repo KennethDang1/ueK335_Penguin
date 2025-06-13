@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Image, StyleSheet, TouchableOpacity, View, Alert } from "react-native";
+import { Alert, Image, StyleSheet, TouchableOpacity, View } from "react-native";
 import { Button, Text, TextInput } from "react-native-paper";
 import { useAuth } from "../lib/AuthProvider";
 
@@ -7,6 +7,9 @@ interface RegisterProps {
   onBackToLogin: () => void;
 }
 
+/**
+ * @param {RegisterProps} { onBackToLogin } - Callback function to navigate back to the login screen.
+ */
 function Register({ onBackToLogin }: RegisterProps) {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -15,6 +18,9 @@ function Register({ onBackToLogin }: RegisterProps) {
   const [registerError, setRegisterError] = useState<string | null>(null);
   const { register: performRegister, isRegistering } = useAuth();
 
+  /**
+   * @returns void
+   */
   const handleRegister = async () => {
     setRegisterError(null);
     if (!name || !email || !password || !confirmPassword) {
@@ -28,7 +34,10 @@ function Register({ onBackToLogin }: RegisterProps) {
     }
 
     if (password.length < 8) {
-      Alert.alert("Registration Error", "Password must be at least 8 characters.");
+      Alert.alert(
+        "Registration Error",
+        "Password must be at least 8 characters."
+      );
       return;
     }
     if (password !== confirmPassword) {
@@ -90,7 +99,8 @@ function Register({ onBackToLogin }: RegisterProps) {
         style={[styles.registerButton, styles.registerButtonBorder]}
         labelStyle={styles.registerButtonText}
       >
-        {isRegistering ? "Registering..." : "Register"}</Button>
+        {isRegistering ? "Registering..." : "Register"}
+      </Button>
 
       <View style={styles.loginContainer}>
         <Text>Already have an account?</Text>

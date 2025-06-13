@@ -8,8 +8,13 @@ import {
   View,
 } from "react-native";
 import { TextInput } from "react-native-paper";
-import { useUpdatePenguin, Penguin } from "../../lib/penguinApi";
+import { Penguin, useUpdatePenguin } from "../../lib/penguinApi";
 
+/**
+ * @param {object} props - The component props.
+ * @param {object} props.route - The route object containing parameters, specifically `penguin`.
+ * @param {object} props.navigation - The navigation object for navigating back.
+ */
 export default function EditPenguin({ route, navigation }: any) {
   const { penguin }: { penguin: Penguin } = route.params;
 
@@ -40,6 +45,9 @@ export default function EditPenguin({ route, navigation }: any) {
     },
   });
 
+  /**
+   * @returns void
+   */
   const handleSubmit = () => {
     if (
       !species ||
@@ -85,7 +93,9 @@ export default function EditPenguin({ route, navigation }: any) {
         onChangeText={setName}
         style={styles.input}
         mode="outlined"
-        theme={{ colors: { text: "black", primary: "black", placeholder: "gray" } }}
+        theme={{
+          colors: { text: "black", primary: "black", placeholder: "gray" },
+        }}
       />
 
       <TextInput
@@ -94,7 +104,9 @@ export default function EditPenguin({ route, navigation }: any) {
         onChangeText={setSpecies}
         style={styles.input}
         mode="outlined"
-        theme={{ colors: { text: "black", primary: "black", placeholder: "gray" } }}
+        theme={{
+          colors: { text: "black", primary: "black", placeholder: "gray" },
+        }}
       />
 
       <TextInput
@@ -103,7 +115,9 @@ export default function EditPenguin({ route, navigation }: any) {
         onChangeText={setIsland}
         style={styles.input}
         mode="outlined"
-        theme={{ colors: { text: "black", primary: "black", placeholder: "gray" } }}
+        theme={{
+          colors: { text: "black", primary: "black", placeholder: "gray" },
+        }}
       />
 
       <TextInput
@@ -113,7 +127,9 @@ export default function EditPenguin({ route, navigation }: any) {
         style={styles.input}
         keyboardType="numeric"
         mode="outlined"
-        theme={{ colors: { text: "black", primary: "black", placeholder: "gray" } }}
+        theme={{
+          colors: { text: "black", primary: "black", placeholder: "gray" },
+        }}
       />
 
       <TextInput
@@ -123,7 +139,9 @@ export default function EditPenguin({ route, navigation }: any) {
         style={styles.input}
         keyboardType="numeric"
         mode="outlined"
-        theme={{ colors: { text: "black", primary: "black", placeholder: "gray" } }}
+        theme={{
+          colors: { text: "black", primary: "black", placeholder: "gray" },
+        }}
       />
 
       <TextInput
@@ -133,7 +151,9 @@ export default function EditPenguin({ route, navigation }: any) {
         style={styles.input}
         keyboardType="numeric"
         mode="outlined"
-        theme={{ colors: { text: "black", primary: "black", placeholder: "gray" } }}
+        theme={{
+          colors: { text: "black", primary: "black", placeholder: "gray" },
+        }}
       />
 
       <TextInput
@@ -143,7 +163,9 @@ export default function EditPenguin({ route, navigation }: any) {
         style={styles.input}
         keyboardType="numeric"
         mode="outlined"
-        theme={{ colors: { text: "black", primary: "black", placeholder: "gray" } }}
+        theme={{
+          colors: { text: "black", primary: "black", placeholder: "gray" },
+        }}
       />
 
       <View style={styles.sexToggle}>

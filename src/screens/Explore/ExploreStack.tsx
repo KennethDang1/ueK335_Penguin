@@ -1,9 +1,9 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import React from "react";
-import Explore from "./Explore";
-import EditPenguin from "./EditPenguin";
-import ViewPenguin from "./ViewPenguin";
 import { Penguin } from "../../lib/penguinApi";
+import EditPenguin from "./EditPenguin";
+import Explore from "./Explore";
+import ViewPenguin from "./ViewPenguin";
 
 export type ExploreStackParamList = {
   ExploreDetails: undefined;
@@ -13,6 +13,9 @@ export type ExploreStackParamList = {
 
 const Stack = createNativeStackNavigator<ExploreStackParamList>();
 
+/**
+ * ExploreStack component defines the navigation stack for the "Explore" tab.
+ */
 const ExploreStack: React.FC = () => {
   return (
     <Stack.Navigator initialRouteName="ExploreDetails">
@@ -27,9 +30,9 @@ const ExploreStack: React.FC = () => {
         options={({ route }) => ({
           title: route.params.penguin.name
             ? "Viewing: " +
-            route.params.penguin.species +
-            " - " +
-            route.params.penguin.name
+              route.params.penguin.species +
+              " - " +
+              route.params.penguin.name
             : "Viewing: " + route.params.penguin.species,
         })}
       />

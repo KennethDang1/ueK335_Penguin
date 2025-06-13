@@ -1,28 +1,30 @@
 import React, { useState } from "react";
-import { Image, StyleSheet, TouchableOpacity, View, Alert } from "react-native";
+import { Alert, Image, StyleSheet, TouchableOpacity, View } from "react-native";
 import { Button, Text, TextInput } from "react-native-paper";
 import { useAuth } from "../lib/AuthProvider";
 import Register from "./Register";
 
+/**
+ * Login component handles user authentication.
+ */
 function Login() {
-  // State to toggle between Login and Register screens
   const [showRegister, setShowRegister] = useState(false);
 
-  // We call the login mutation from the context
   const { login: performLogin, isLoggingIn } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  // To get the error state, we can track it locally
   const [loginError, setLoginError] = useState<string | null>(null);
 
-  // If showRegister is true, render the Register component
   if (showRegister) {
     return <Register onBackToLogin={() => setShowRegister(false)} />;
   }
 
+  /**
+   * Handles the login button press.
+   */
   const handleLogin = () => {
-    setLoginError(null); // Clear previous errors
+    setLoginError(null);
     Promise.resolve(performLogin({ email, password })).catch((error: Error) => {
       Alert.alert("Login Error", error.message);
     });
@@ -127,8 +129,9 @@ const styles = StyleSheet.create({
   registerContainer: {
     flexDirection: "row",
     gap: 5,
+    marginTop: 20,
   },
-  registerLink: {
+  loginLink: {
     color: "#007AFF",
   },
 });

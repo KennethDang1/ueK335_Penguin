@@ -20,6 +20,9 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { Penguin, useDeletePenguin, usePenguins } from "../../lib/penguinApi";
 import { ExploreStackParamList } from "./ExploreStack";
 
+/**
+ * Explore component displays a list of penguins with filtering, sorting, and pagination capabilities.
+ */
 const Explore = () => {
   const navigation =
     useNavigation<NativeStackNavigationProp<ExploreStackParamList>>();
@@ -47,10 +50,14 @@ const Explore = () => {
 
   const { mutate: deletePenguin } = useDeletePenguin();
 
+  /**
+   * @param penguin - The penguin object to be deleted.
+   */
   const handleDeletePenguin = async (penguin: Penguin) => {
     Alert.alert(
       "Delete Penguin",
-      `Are you sure you want to delete ${penguin.species}${penguin.name ? ` (${penguin.name})` : ""
+      `Are you sure you want to delete ${penguin.species}${
+        penguin.name ? ` (${penguin.name})` : ""
       }?`,
       [
         {
@@ -74,6 +81,9 @@ const Explore = () => {
     );
   };
 
+  /**
+   * Handles the refresh action triggered by pull-to-refresh.
+   */
   const onRefresh = async () => {
     setRefreshing(true);
     setPage(1);
@@ -86,13 +96,16 @@ const Explore = () => {
     }
   };
 
+  /**
+   * @param penguin - The penguin object to view.
+   */
   const handleViewPenguin = (penguin: Penguin) => {
     navigation.navigate("View", { penguin });
   };
 
   const segmentedButtons = [
     {
-      value: "ALL",
+      value: "ALL" as "ALL" | "MALE" | "FEMALE",
       label: "All",
       checkedColor: "#000",
       uncheckedColor: "#000",
@@ -106,7 +119,7 @@ const Explore = () => {
           : styles.uncheckedTextStyle,
     },
     {
-      value: "MALE",
+      value: "MALE" as "ALL" | "MALE" | "FEMALE",
       label: "Male",
       checkedColor: "#000",
       uncheckedColor: "#000",
@@ -120,7 +133,7 @@ const Explore = () => {
           : styles.uncheckedTextStyle,
     },
     {
-      value: "FEMALE",
+      value: "FEMALE" as "ALL" | "MALE" | "FEMALE",
       label: "Female",
       checkedColor: "#000",
       uncheckedColor: "#000",
@@ -161,7 +174,7 @@ const Explore = () => {
       />
       <SegmentedButtons
         value={genderFilter}
-        onValueChange={(value) => {
+        onValueChange={(value: "ALL" | "MALE" | "FEMALE") => {
           setGenderFilter(value);
           setPage(1);
         }}

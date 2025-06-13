@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { ScrollView, StyleSheet, View, TouchableOpacity } from "react-native";
-import { TextInput, Text, Divider } from "react-native-paper";
+import { ScrollView, StyleSheet, TouchableOpacity, View } from "react-native";
+import { Divider, Text, TextInput } from "react-native-paper";
 import { Penguin } from "../../lib/penguinApi";
 
 const ViewPenguin: React.FC<{
@@ -19,7 +19,9 @@ const ViewPenguin: React.FC<{
         mode="outlined"
         editable={isEditable}
         style={styles.input}
-        theme={{ colors: { text: "black", placeholder: "gray", background: "#f5f5f5" } }}
+        theme={{
+          colors: { text: "black", placeholder: "gray", background: "#f5f5f5" },
+        }}
       />
 
       <Divider bold={true} />
@@ -30,7 +32,9 @@ const ViewPenguin: React.FC<{
         mode="outlined"
         editable={isEditable}
         style={styles.input}
-        theme={{ colors: { text: "black", placeholder: "gray", background: "#f5f5f5" } }}
+        theme={{
+          colors: { text: "black", placeholder: "gray", background: "#f5f5f5" },
+        }}
       />
 
       <TextInput
@@ -39,7 +43,9 @@ const ViewPenguin: React.FC<{
         mode="outlined"
         editable={isEditable}
         style={styles.input}
-        theme={{ colors: { text: "black", placeholder: "gray", background: "#f5f5f5" } }}
+        theme={{
+          colors: { text: "black", placeholder: "gray", background: "#f5f5f5" },
+        }}
       />
 
       <TextInput
@@ -48,7 +54,9 @@ const ViewPenguin: React.FC<{
         mode="outlined"
         editable={isEditable}
         style={styles.input}
-        theme={{ colors: { text: "black", placeholder: "gray", background: "#f5f5f5" } }}
+        theme={{
+          colors: { text: "black", placeholder: "gray", background: "#f5f5f5" },
+        }}
       />
       <TextInput
         label="Beak Length (mm)"
@@ -56,7 +64,9 @@ const ViewPenguin: React.FC<{
         mode="outlined"
         editable={isEditable}
         style={styles.input}
-        theme={{ colors: { text: "black", placeholder: "gray", background: "#f5f5f5" } }}
+        theme={{
+          colors: { text: "black", placeholder: "gray", background: "#f5f5f5" },
+        }}
       />
       <TextInput
         label="Flipper Length (mm)"
@@ -64,7 +74,9 @@ const ViewPenguin: React.FC<{
         mode="outlined"
         editable={isEditable}
         style={styles.input}
-        theme={{ colors: { text: "black", placeholder: "gray", background: "#f5f5f5" } }}
+        theme={{
+          colors: { text: "black", placeholder: "gray", background: "#f5f5f5" },
+        }}
       />
       <TextInput
         label="Body Mass (g)"
@@ -72,7 +84,9 @@ const ViewPenguin: React.FC<{
         mode="outlined"
         editable={isEditable}
         style={styles.input}
-        theme={{ colors: { text: "black", placeholder: "gray", background: "#f5f5f5" } }}
+        theme={{
+          colors: { text: "black", placeholder: "gray", background: "#f5f5f5" },
+        }}
       />
 
       <View style={styles.sexToggle}>
@@ -87,7 +101,6 @@ const ViewPenguin: React.FC<{
           <Text>Female</Text>
         </TouchableOpacity>
       </View>
-
     </ScrollView>
   );
 };

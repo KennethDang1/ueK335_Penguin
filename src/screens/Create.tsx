@@ -10,6 +10,9 @@ import {
 import { TextInput } from "react-native-paper";
 import { useCreatePenguin } from "../lib/penguinApi";
 
+/**
+ * CreatePenguin component for adding new penguin entries.
+ */
 export default function CreatePenguin() {
   const [species, setSpecies] = useState("");
   const [island, setIsland] = useState("");
@@ -37,6 +40,9 @@ export default function CreatePenguin() {
     },
   });
 
+  /**
+   * @returns void
+   */
   const handleSubmit = () => {
     if (
       !species ||
@@ -203,7 +209,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     borderWidth: 1,
     borderColor: "black",
-    marginBottom: 20,
   },
   createButtonText: {
     fontSize: 16,

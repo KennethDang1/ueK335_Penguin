@@ -3,6 +3,9 @@ import { StyleSheet, Text, View } from "react-native";
 import { Button } from "react-native-paper";
 import { useAuth } from "../lib/AuthProvider";
 
+/**
+ * Profile component displays user information and provides a logout option.
+ */
 const Profile = () => {
   const { logout, session } = useAuth();
 

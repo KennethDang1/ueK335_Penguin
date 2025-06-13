@@ -53,16 +53,14 @@ export interface SortConfig {
 }
 
 export interface PaginationConfig {
-  page: number; // 1-based index
+  page: number;
   pageSize: number;
 }
 
 export interface FilterConfig {
   /** A general search query to filter by name or species */
   searchQuery?: string;
-  // Additional filters can be added as needed
   gender?: "ALL" | "MALE" | "FEMALE";
-  // You could add more specific filters here, e.g., species?: string[];
 }
 
 export interface UsePenguinsParams {
@@ -88,7 +86,6 @@ const mapApiToPenguin = (apiData: ApiPenguin): Penguin => ({
 /**
  * Maps our clean, internal format back to the API's format.
  * @param penguinData The clean penguin data from our app.
- * @returns An object formatted for the API.
  */
 const mapPenguinToApi = (
   penguinData: PenguinCreateData | PenguinUpdateData
@@ -169,12 +166,14 @@ export const deletePenguin = async ({
 // --- React Query Hooks ---
 
 /**
- * Fetches the entire list of penguins and processes it locally.
- * This hook handles filtering, sorting, and pagination on the client-side.
- * @param params - Configuration for sorting, pagination, and filtering.
- * @returns An object containing the processed list of penguins (`data`),
- *          total count after filtering (`totalCount`), total pages for pagination (`totalPages`),
- *          and the standard react-query properties (`isLoading`, `error`, etc.).
+ * Custom hook to fetch, filter, sort, and paginate penguin data.
+ * @param {UsePenguinsParams} [params] - Optional parameters for sorting, pagination, and filtering.
+ * @returns {object} An object containing:
+ *   - `penguins`: The processed list of `Penguin` objects.
+ *   - `totalCount`: The total number of penguins after filtering.
+ *   - `totalPages`: The total number of pages based on pagination settings.
+ *   - Standard `useQuery` return values like `isLoading`, `error`, etc.
+ * @throws {Error} If the authentication token is not available.
  */
 export const usePenguins = ({
   sort,
@@ -191,13 +190,11 @@ export const usePenguins = ({
       return fetchPenguins(token);
     },
     enabled: !!token,
-    staleTime: Infinity, // Data is fetched once and considered fresh forever
-    gcTime: Infinity, // Don't garbage collect this data
-    // The `select` option processes the data locally without causing a refetch
+    staleTime: Infinity,
+    gcTime: Infinity,
     select: (allPenguins: Penguin[]) => {
       let processedPenguins = [...allPenguins];
 
-      // 1. Filtering
       if (filters?.searchQuery && filters.searchQuery.trim() !== "") {
         const query = filters.searchQuery.toLowerCase();
         processedPenguins = processedPenguins.filter(
@@ -214,13 +211,11 @@ export const usePenguins = ({
         );
       }
 
-      // 2. Sorting
       if (sort?.field) {
         processedPenguins.sort((a, b) => {
           const valA = a[sort.field];
           const valB = b[sort.field];
 
-          // Move null/undefined values to the end
           if (valA == null) return 1;
           if (valB == null) return -1;
 
@@ -232,7 +227,6 @@ export const usePenguins = ({
 
       const totalCount = processedPenguins.length;
 
-      // 3. Pagination
       if (pagination) {
         const { page, pageSize } = pagination;
         const start = (page - 1) * pageSize;
@@ -251,6 +245,12 @@ export const usePenguins = ({
   });
 };
 
+/**
+ * Custom hook for creating a new penguin.
+ * @param {UseMutationOptions<Penguin, Error, PenguinCreateData>} [options] - Options for the mutation.
+ * @returns {object} The `useMutation` object for creating a penguin.
+ * @throws {Error} If the user is not authenticated.
+ */
 export const useCreatePenguin = (
   options?: UseMutationOptions<Penguin, Error, PenguinCreateData>
 ) => {
@@ -262,7 +262,6 @@ export const useCreatePenguin = (
       if (!session?.accessToken) throw new Error("User is not authenticated.");
       return createPenguin(penguinData, session.accessToken);
     },
-    // Optimistically update the cache on success for a snappy UI
     onSuccess: (newPenguin) => {
       queryClient.setQueryData<Penguin[]>(
         PENGUINS_QUERY_KEY,
@@ -273,6 +272,12 @@ export const useCreatePenguin = (
   });
 };
 
+/**
+ * Custom hook for updating an existing penguin.
+ * @param {UseMutationOptions<Penguin, Error, { id: number; penguinData: PenguinUpdateData }>} [options] - Options for the mutation.
+ * @returns {object} The `useMutation` object for updating a penguin.
+ * @throws {Error} If the user is not authenticated.
+ */
 export const useUpdatePenguin = (
   options?: UseMutationOptions<
     Penguin,
@@ -292,7 +297,6 @@ export const useUpdatePenguin = (
       if (!session?.accessToken) throw new Error("User is not authenticated.");
       return updatePenguin({ ...vars, token: session.accessToken });
     },
-    // Optimistically update the specific item in the cache
     onSuccess: (updatedPenguin) => {
       queryClient.setQueryData<Penguin[]>(PENGUINS_QUERY_KEY, (oldData = []) =>
         oldData.map((p) => (p.id === updatedPenguin.id ? updatedPenguin : p))
@@ -302,6 +306,12 @@ export const useUpdatePenguin = (
   });
 };
 
+/**
+ * Custom hook for deleting a penguin.
+ * @param {UseMutationOptions<void, Error, number>} [options] - Options for the mutation.
+ * @returns {object} The `useMutation` object for deleting a penguin.
+ * @throws {Error} If the user is not authenticated.
+ */
 export const useDeletePenguin = (
   options?: UseMutationOptions<void, Error, number>
 ) => {
@@ -313,7 +323,6 @@ export const useDeletePenguin = (
       if (!session?.accessToken) throw new Error("User is not authenticated.");
       return deletePenguin({ id, token: session.accessToken });
     },
-    // Optimistically remove the item from the cache
     onSuccess: (_, deletedId) => {
       queryClient.setQueryData<Penguin[]>(PENGUINS_QUERY_KEY, (oldData = []) =>
         oldData.filter((p) => p.id !== deletedId)

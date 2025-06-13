@@ -8,6 +8,9 @@ import { useAuth } from "../lib/AuthProvider";
 import { usePenguins } from "../lib/penguinApi";
 import { TabsParamList } from "../Tabs";
 
+/**
+ * LandingPage component serves as the main entry point after successful authentication.
+ */
 const LandingPage = () => {
   const { session } = useAuth();
   const navigation = useNavigation<BottomTabNavigationProp<TabsParamList>>();
@@ -24,7 +27,7 @@ const LandingPage = () => {
 
       <View style={styles.cardContainer}>
         <Card
-          style={[styles.card, { backgroundColor: "white" }]} 
+          style={[styles.card, { backgroundColor: "white" }]}
           onPress={() => {
             navigation.navigate("Explore");
           }}
@@ -49,7 +52,7 @@ const LandingPage = () => {
         </Card>
 
         <Card
-          style={[styles.card, { backgroundColor: "white" }]} 
+          style={[styles.card, { backgroundColor: "white" }]}
           onPress={() => navigation.navigate("Create")}
         >
           <Card.Content>
