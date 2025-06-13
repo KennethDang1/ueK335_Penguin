@@ -68,3 +68,7 @@ This project follows the [Google TypeScript Style Guide](https://google.github.i
 
 For formatting and linting, we use [Prettier](https://prettier.io/) and [ESLint](https://eslint.org/).
 
+
+## UEK Links
+- [Presentation](Presentation.pdf)
+- [Documentation](Documentation.pdf)
