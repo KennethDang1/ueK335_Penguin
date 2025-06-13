@@ -2,7 +2,6 @@ import { BottomTabBarProps } from "@react-navigation/bottom-tabs";
 import React from "react";
 import { StyleSheet } from "react-native";
 import { BottomNavigation } from "react-native-paper";
-
 const CustomBottomNavbar = ({
   state,
   descriptors,
@@ -25,13 +24,16 @@ const CustomBottomNavbar = ({
       style={styles.bottomNavigation}
       activeColor="black"
       inactiveColor="gray"
+      activeIndicatorStyle={{
+        backgroundColor: "#FFCB05",
+      }}
     />
   );
 };
 
 const styles = StyleSheet.create({
   bottomNavigation: {
-    backgroundColor: "#FFFFFF",
+    backgroundColor: "white",
     borderTopWidth: 1,
     borderTopColor: "#e0e0e0",
   },
