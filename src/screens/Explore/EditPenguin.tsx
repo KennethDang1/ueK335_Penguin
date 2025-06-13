@@ -85,7 +85,6 @@ export default function EditPenguin({ route, navigation }: any) {
         paddingBottom: 30,
       }}
     >
-      <Text style={styles.heading}>Edit Penguin</Text>
 
       <TextInput
         label="Name (optional)"
@@ -197,12 +196,6 @@ export default function EditPenguin({ route, navigation }: any) {
 }
 
 const styles = StyleSheet.create({
-  heading: {
-    fontSize: 24,
-    fontWeight: "bold",
-    textAlign: "center",
-    marginBottom: 20,
-  },
   input: {
     marginBottom: 15,
   },
