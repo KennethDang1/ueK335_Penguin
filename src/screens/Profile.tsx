@@ -62,7 +62,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   logoutButton: {
-    backgroundColor: "#ffc107",
+    backgroundColor: "#FFCC00",
     borderRadius: 5,
     borderWidth: 1,
     borderColor: "black",

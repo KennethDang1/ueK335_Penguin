@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Image, StyleSheet, TouchableOpacity, View } from "react-native";
+import { Image, StyleSheet, TouchableOpacity, View, Alert } from "react-native";
 import { Button, Text, TextInput } from "react-native-paper";
 import { useAuth } from "../lib/AuthProvider";
 import Register from "./Register";
@@ -24,7 +24,7 @@ function Login() {
   const handleLogin = () => {
     setLoginError(null); // Clear previous errors
     Promise.resolve(performLogin({ email, password })).catch((error: Error) => {
-      setLoginError(error.message);
+      Alert.alert("Login Error", error.message);
     });
   };
 

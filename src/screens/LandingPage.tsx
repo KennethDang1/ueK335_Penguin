@@ -24,7 +24,7 @@ const LandingPage = () => {
 
       <View style={styles.cardContainer}>
         <Card
-          style={styles.card}
+          style={[styles.card, { backgroundColor: "white" }]} 
           onPress={() => {
             navigation.navigate("Explore");
           }}
@@ -48,7 +48,10 @@ const LandingPage = () => {
           </Card.Content>
         </Card>
 
-        <Card style={styles.card} onPress={() => navigation.navigate("Create")}>
+        <Card
+          style={[styles.card, { backgroundColor: "white" }]} 
+          onPress={() => navigation.navigate("Create")}
+        >
           <Card.Content>
             <View style={styles.cardContent}>
               <View>
@@ -80,9 +83,9 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   header: {
-    paddingTop: 100, // Adjusted for better positioning
+    paddingTop: 100,
     paddingHorizontal: 20,
-    marginBottom: 40, // Added space below header
+    marginBottom: 40,
   },
   welcomeText: {
     fontSize: 28,
@@ -90,7 +93,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   cardContainer: {
-    width: "90%", // Adjusted width for cards
+    width: "90%",
     alignItems: "center",
   },
   card: {

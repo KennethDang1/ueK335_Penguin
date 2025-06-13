@@ -50,8 +50,7 @@ const Explore = () => {
   const handleDeletePenguin = async (penguin: Penguin) => {
     Alert.alert(
       "Delete Penguin",
-      `Are you sure you want to delete ${penguin.species}${
-        penguin.name ? ` (${penguin.name})` : ""
+      `Are you sure you want to delete ${penguin.species}${penguin.name ? ` (${penguin.name})` : ""
       }?`,
       [
         {
@@ -91,6 +90,51 @@ const Explore = () => {
     navigation.navigate("View", { penguin });
   };
 
+  const segmentedButtons = [
+    {
+      value: "ALL",
+      label: "All",
+      checkedColor: "#000",
+      uncheckedColor: "#000",
+      style:
+        genderFilter === "ALL"
+          ? styles.checkedButtonStyle
+          : styles.uncheckedButtonStyle,
+      labelStyle:
+        genderFilter === "ALL"
+          ? styles.checkedTextStyle
+          : styles.uncheckedTextStyle,
+    },
+    {
+      value: "MALE",
+      label: "Male",
+      checkedColor: "#000",
+      uncheckedColor: "#000",
+      style:
+        genderFilter === "MALE"
+          ? styles.checkedButtonStyle
+          : styles.uncheckedButtonStyle,
+      labelStyle:
+        genderFilter === "MALE"
+          ? styles.checkedTextStyle
+          : styles.uncheckedTextStyle,
+    },
+    {
+      value: "FEMALE",
+      label: "Female",
+      checkedColor: "#000",
+      uncheckedColor: "#000",
+      style:
+        genderFilter === "FEMALE"
+          ? styles.checkedButtonStyle
+          : styles.uncheckedButtonStyle,
+      labelStyle:
+        genderFilter === "FEMALE"
+          ? styles.checkedTextStyle
+          : styles.uncheckedTextStyle,
+    },
+  ];
+
   if (isLoading && !refreshing) {
     return <Text>Loading...</Text>;
   }
@@ -113,6 +157,7 @@ const Explore = () => {
           setSearchText("");
           setPage(1);
         }}
+        style={styles.searchBar}
       />
       <SegmentedButtons
         value={genderFilter}
@@ -120,11 +165,7 @@ const Explore = () => {
           setGenderFilter(value);
           setPage(1);
         }}
-        buttons={[
-          { value: "ALL", label: "All" },
-          { value: "MALE", label: "Male" },
-          { value: "FEMALE", label: "Female" },
-        ]}
+        buttons={segmentedButtons}
       />
       <ScrollView
         refreshControl={
@@ -134,11 +175,11 @@ const Explore = () => {
         {data?.penguins?.map((item: Penguin) => (
           <Card
             key={item.id}
-            style={[styles.listItem, { backgroundColor: "#F8F8FF" }]}
+            style={[styles.listItem, { backgroundColor: "white" }]}
           >
             <Card.Title
               title={item.species + (item.name ? ` (${item.name})` : "")}
-              titleStyle={{ color: "#4B0082" }}
+              titleStyle={styles.cardTitle}
               subtitle={`from ${item.island}`}
               right={() => (
                 <View style={styles.icons}>
@@ -220,6 +261,31 @@ const styles = StyleSheet.create({
   },
   pageText: {
     fontSize: 16,
+  },
+  checkedButtonStyle: {
+    backgroundColor: "#FFCC00",
+    borderColor: "black",
+    borderWidth: 1,
+  },
+  uncheckedButtonStyle: {
+    backgroundColor: "white",
+    borderColor: "black",
+    borderWidth: 1,
+  },
+  checkedTextStyle: {
+    color: "black",
+  },
+  uncheckedTextStyle: {
+    color: "black",
+  },
+  searchBar: {
+    backgroundColor: "white",
+    borderWidth: 1,
+    borderColor: "black",
+    borderRadius: 30,
+  },
+  cardTitle: {
+    color: "black",
   },
 });
 

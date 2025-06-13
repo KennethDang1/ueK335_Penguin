@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Image, StyleSheet, TouchableOpacity, View } from "react-native";
+import { Image, StyleSheet, TouchableOpacity, View, Alert } from "react-native";
 import { Button, Text, TextInput } from "react-native-paper";
 import { useAuth } from "../lib/AuthProvider";
 
@@ -18,29 +18,29 @@ function Register({ onBackToLogin }: RegisterProps) {
   const handleRegister = async () => {
     setRegisterError(null);
     if (!name || !email || !password || !confirmPassword) {
-      setRegisterError("Please fill all fields.");
+      Alert.alert("Registration Error", "Please fill all fields.");
       return;
     }
 
     if (!email.includes("@")) {
-      setRegisterError("Please enter a valid email.");
+      Alert.alert("Registration Error", "Please enter a valid email.");
       return;
     }
 
     if (password.length < 8) {
-      setRegisterError("Password must be at least 8 characters.");
+      Alert.alert("Registration Error", "Password must be at least 8 characters.");
       return;
     }
     if (password !== confirmPassword) {
-      setRegisterError("Passwords do not match.");
+      Alert.alert("Registration Error", "Passwords do not match.");
       return;
     }
 
     try {
       await performRegister({ name, email, password });
       onBackToLogin();
-    } catch (error) {
-      setRegisterError(error.message);
+    } catch (error: any) {
+      Alert.alert("Registration Error", error.message);
     }
   };
 
