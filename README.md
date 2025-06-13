@@ -65,3 +65,6 @@ Um die Applikation zu beenden führe `Ctrl + C` aus.
 ## Coding Guidelines
 
 This project follows the [Google TypeScript Style Guide](https://google.github.io/styleguide/tsguide.html).
+
+For formatting and linting, we use [Prettier](https://prettier.io/) and [ESLint](https://eslint.org/).
+
